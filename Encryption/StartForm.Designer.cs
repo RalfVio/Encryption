@@ -131,7 +131,7 @@ namespace Encryption
             this.dataTextBox.Name = "dataTextBox";
             this.dataTextBox.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
             this.dataTextBox.Size = new System.Drawing.Size(739, 399);
-            this.dataTextBox.TabIndex = 3;
+            this.dataTextBox.TabIndex = 1;
             // 
             // saveFileDialog
             // 
@@ -143,7 +143,7 @@ namespace Encryption
             this.addBrTagsCheckBox.Location = new System.Drawing.Point(108, 114);
             this.addBrTagsCheckBox.Name = "addBrTagsCheckBox";
             this.addBrTagsCheckBox.Size = new System.Drawing.Size(142, 29);
-            this.addBrTagsCheckBox.TabIndex = 5;
+            this.addBrTagsCheckBox.TabIndex = 3;
             this.addBrTagsCheckBox.Text = "Add BR tags ";
             this.addBrTagsCheckBox.UseVisualStyleBackColor = true;
             // 
