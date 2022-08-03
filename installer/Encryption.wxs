@@ -1,0 +1,69 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
+    <Product Id="*" UpgradeCode="d27f6d7a-73c5-42a6-940b-d8247659a60f" Version="1.0.0.0" Language="1033" Name="Encryption" Manufacturer="Ralf Viola">
+        <Package InstallerVersion="300" Compressed="yes"/>
+        <Media Id="1" Cabinet="Encryption.cab" EmbedCab="yes" />
+
+        <!-- Step 1: Define the directory structure -->
+        <Directory Id="TARGETDIR" Name="SourceDir">
+            <Directory Id="ProgramFilesFolder">
+              <Directory Id="APPLICATIONCompanyDIRECTORY" Name="Ralf">
+                <Directory Id="APPLICATIONROOTDIRECTORY" Name="Encryption"/>
+              </Directory>
+            </Directory>
+
+            <Directory Id="ProgramMenuFolder">
+              <Directory Id="ProgramMenuCompanyFolder" Name="Ralf">
+                <Directory Id="ApplicationProgramsFolder" Name="Encryption"/>
+              </Directory>
+            </Directory>
+        </Directory>
+
+        <!-- Step 2: Add files to your installer package -->
+        <DirectoryRef Id="APPLICATIONROOTDIRECTORY">
+          <Component Id="Encryption.deps.json" Guid="c68bbab3-817a-4fec-b086-d0441110091b">
+                <File Id="Encryption.deps.json" Source="..\Encryption\bin\Release\netcoreapp3.1\Encryption.deps.json" KeyPath="yes" Checksum="yes"/>
+          </Component>
+          <Component Id="Encryption.dll" Guid="b817e6b8-a5e9-4062-8a95-ce6e0fcd579e">
+                <File Id="Encryption.dll" Source="..\Encryption\bin\Release\netcoreapp3.1\Encryption.dll" KeyPath="yes" Checksum="yes"/>
+          </Component>
+          <Component Id="Encryption.exe" Guid="547f65f4-03a2-4f4e-a913-2c243c4a1225">
+                <File Id="Encryption.exe" Source="..\Encryption\bin\Release\netcoreapp3.1\Encryption.exe" KeyPath="yes" Checksum="yes"/>
+          </Component>
+          <Component Id="Encryption.pdb" Guid="4d42f707-577e-43aa-94a1-471cbef20e83">
+                <File Id="Encryption.pdb" Source="..\Encryption\bin\Release\netcoreapp3.1\Encryption.pdb" KeyPath="yes" Checksum="yes"/>
+          </Component>
+          <Component Id="Encryption.runtimeconfig.dev.json" Guid="ebe85b04-d5d3-4f62-9dd8-feb3085a552a">
+                <File Id="Encryption.runtimeconfig.dev.json" Source="..\Encryption\bin\Release\netcoreapp3.1\Encryption.runtimeconfig.dev.json" KeyPath="yes" Checksum="yes"/>
+          </Component>
+          <Component Id="Encryption.runtimeconfig.json" Guid="8b18db43-90b8-41d0-befe-a4981cf8333a">
+                <File Id="Encryption.runtimeconfig.json" Source="..\Encryption\bin\Release\netcoreapp3.1\Encryption.runtimeconfig.json" KeyPath="yes" Checksum="yes"/>
+          </Component>
+        </DirectoryRef>
+
+       <!-- Step 3: Add the shortcut to your installer package -->
+        <DirectoryRef Id="ApplicationProgramsFolder">
+          <Component Id="ApplicationShortcut" Guid="23dfcc01-ee3e-436f-b9a7-ff6228d985ff">
+            <Shortcut Id="ApplicationStartMenuShortcut"
+                  Name="Encryption"
+                  Description="Encryption tool"
+                  Target="[#Encryption.exe]"
+                  WorkingDirectory="APPLICATIONROOTDIRECTORY"/>
+              <RemoveFolder Id="ApplicationProgramsFolder" On="uninstall"/>
+              <RegistryValue Root="HKCU" Key="Software\Microsoft\Encryption" Name="installed" Type="integer" Value="1" KeyPath="yes"/>
+          </Component>
+        </DirectoryRef>
+
+        <!-- Step 4: Tell WiX to install the files -->
+        <Feature Id="MainApplication" Title="Encryption" Level="1">
+            <ComponentRef Id="Encryption.deps.json" />
+            <ComponentRef Id="Encryption.dll" />
+            <ComponentRef Id="Encryption.exe" />
+            <ComponentRef Id="Encryption.pdb" />
+            <ComponentRef Id="Encryption.runtimeconfig.dev.json" />
+            <ComponentRef Id="Encryption.runtimeconfig.json" />
+             <!-- Step 5: Tell WiX to install the shortcut -->
+            <ComponentRef Id="ApplicationShortcut" />
+        </Feature>
+    </Product>
+</Wix>
